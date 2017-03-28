@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost/catcher?useSSL=true</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">8235143</property>
+
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">false</property>
+        <!--<property name="hbm2ddl.auto">create</property>-->
+
+        <mapping class="com.hyq.entity.User"/>
+        <mapping class="com.hyq.entity.Project"/>
+        <mapping class="com.hyq.entity.Bug"/>
+        <mapping class="com.hyq.entity.Version"/>
+        <mapping class="com.hyq.entity.Affiche"/>
+        <mapping class="com.hyq.entity.ReceiveBox"/>
+        <mapping class="com.hyq.entity.SendBox" />
+
+        <listener class="com.hyq.listener.MyLoadListener"/>
+        <listener class="com.hyq.listener.MySaveListener"/>
+
+    </session-factory>
+</hibernate-configuration>
