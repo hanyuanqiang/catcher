@@ -668,15 +668,15 @@
                                     <label class="radio-inline">
                                         <input type="radio" name="inlineRadioOptions" id="close" value="close"> 关闭
                                     </label>
-                                    <div id="selectVerifierDiv" hidden>
+                                    <div id="selectVerifierDiv">
                                         <p>当前验证人:</p>
                                         <div class="input-group" style="width: 100%;">
                                             <div class="form-control" aria-describedby="sizing-addon2">
                                                 <div class="plus-tag tagbtn clearfix" style="height: 23px;">
                                                     <p id="verifierTag" hidden></p>
                                                         <script>
-                                                            <c:if test="${bug!=null && bug.processor!=null}">
-                                                            $("#verifierTag").after('<a title="${bug.verifier.label}" href="javascript:void(0);" id="a_verifier" class="a_commom"><span>${bug.verifier.label}</span><em onclick="removeProcessor()"></em> </a>');
+                                                            <c:if test="${bug!=null && bug.verifier!=null}">
+                                                            $("#verifierTag").after('<a title="${bug.verifier.label}" href="javascript:void(0);" id="a_verifier" class="a_commom"><span>${bug.verifier.label}</span><em onclick="removeVerifier()"></em> </a>');
                                                             $("#verifierTag").after('<input type="text" hidden value="${bug.verifier.id}" name="verifier.id" id="input_verifier">');
                                                             </c:if>
                                                         </script>
@@ -694,16 +694,17 @@
                                         $("#save").click(function(){
                                             $("#bug_action").val("save");
                                             $("#selectVerifierDiv").show();
+                                            $("#input_verifier").attr("name","verifier.id");
                                         });
                                         $("#rtnProcess").click(function(){
                                             $("#bug_action").val("rtnProcess");
-                                            removeVerifier();
                                             $("#selectVerifierDiv").hide();
+                                            $("#input_verifier").attr("name","demo");
                                         });
                                         $("#close").click(function(){
-                                            removeVerifier();
                                             $("#bug_action").val("close");
                                             $("#selectVerifierDiv").hide();
+                                            $("#input_verifier").attr("name","demo");
                                         });
 
                                     });
@@ -762,7 +763,7 @@
                                         <input type="radio" name="inlineRadioOptions" id="save" value="save" checked> 保存
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="inlineRadioOptions" id="unassign" value="unassign"> 待分配
+                                        <input type="radio" name="inlineRadioOptions" id="rtnUnassign" value="rtnUnassign"> 退回待分配
                                     </label>
                                 </div>
 
@@ -771,8 +772,8 @@
                                         $("#save").click(function(){
                                             $("#bug_action").val("save");
                                         });
-                                        $("#unassign").click(function(){
-                                            $("#bug_action").val("unassign");
+                                        $("#rtnUnassign").click(function(){
+                                            $("#bug_action").val("rtnUnassign");
                                         });
                                     });
 
@@ -870,9 +871,9 @@
     <%--<c:if test='${bug.status == "已废弃"}'>
 
     </c:if>--%>
-    <c:if test='${bug.status == "已关闭"}'>
+    <%--<c:if test='${bug.status == "已关闭"}'>
 
-    </c:if>
+    </c:if>--%>
     <%--<c:if test='${bug.status == "已挂起"}'>
 
     </c:if>--%>

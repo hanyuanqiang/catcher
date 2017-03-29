@@ -153,6 +153,10 @@ public class MyDAOImpl<T> implements MyDAO<T> {
 		this.getCurrentSession().createQuery(hql).setString("1",fieldValue.toString()).setInteger("2",id).executeUpdate();
 	}
 
+	public void clearSession() {
+		this.getCurrentSession().clear();
+	}
+
 	public Object merge(T o) {
 		return this.getCurrentSession().merge(o);
 	}

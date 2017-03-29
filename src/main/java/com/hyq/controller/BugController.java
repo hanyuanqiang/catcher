@@ -11,6 +11,7 @@ import com.hyq.util.CheckUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,31 +62,26 @@ public class BugController {
             System.out.println("realPath:"+realPath);
         }
 
-        /*if (CheckUtil.isNotNull(bug.getVerifier())){
-            User verifier = (User) myService.getEntityById(User.class,bug.getVerifier().getId());
-            bug.setVerifier(verifier);
-        }
-
-        if (CheckUtil.isNotNull(bug.getProcessor())){
-            User processor = (User) myService.getEntityById(User.class,bug.getProcessor().getId());
-            bug.setProcessor(processor);
-        }
-
-        if (CheckUtil.isNotNull(bug.getRaisedVersion())){
-            Version raisedVersion = (Version) myService.getEntityById(Version.class,bug.getRaisedVersion().getId());
-            bug.setRaisedVersion(raisedVersion);
-            bug.setProject(raisedVersion.getProject());
-        }
-
-        if (bug.getProcessor() == null){
-            bug.setStatus(Bug_status.创建中);
-        }else if (bug.getProcessor() != null && bug.getVerifier() == null) {
-            bug.setStatus(Bug_status.处理中);
-        } else if (bug.getVerifier() != null){
-            bug.setStatus(Bug_status.验证中);
-        }*/
-
         if (CheckUtil.isNotNull(bug.getId())){
+            Bug bugFromDB = (Bug) myService.getEntityByIdAndClearSession(Bug.class,bug.getId());
+            if (bug.getSolver() == null){
+                if (bugFromDB.getSolver()!=null){
+                    bug.setSolver(bugFromDB.getSolver());
+                }
+            }else{
+                User solver = (User) myService.getEntityById(User.class,bug.getSolver().getId());
+                bug.setSolver(solver);
+            }
+
+            if (bug.getVerifier() == null){
+                if (bugFromDB.getVerifier()!=null){
+                    bug.setVerifier(bugFromDB.getVerifier());
+                }
+            }else{
+                User verifier = (User) myService.getEntityById(User.class,bug.getVerifier().getId());
+                bug.setVerifier(verifier);
+            }
+
             if (Bug_status.创建中.equals(bug.getStatus())){
                 if (Bug_action.abandon.equals(bug.getAction())){
                     bug.setStatus(Bug_status.已废弃);
@@ -138,8 +134,33 @@ public class BugController {
                 }else if (Bug_action.save.equals(bug.getAction())){
                     bug.setStatus(Bug_status.验证中);
                 }
+            }else if(Bug_status.已挂起.equals(bug.getStatus())){
+                if (Bug_action.save.equals(bug.getAction())){
+                    bug.setStatus(Bug_status.已挂起);
+                }else if (Bug_action.rtnUnassign.equals(bug.getAction())){
+                    bug.setStatus(Bug_status.待分配);
+                }
+            }else if (Bug_status.重打开.equals(bug.getStatus())){
+                if (Bug_action.save.equals(bug.getAction())){
+                    bug.setStatus(Bug_status.重打开);
+                }else if (Bug_action.rtnProcess.equals(bug.getAction())){
+                    bug.setStatus(Bug_status.处理中);
+                }else if (Bug_action.receive.equals(bug.getAction())){
+                    bug.setStatus(Bug_status.处理中);
+                }
+            }else if (Bug_status.已关闭.equals(bug.getStatus())){
+                if (Bug_action.rOpen.equals(bug.getAction())){
+                    bug.setStatus(Bug_status.重打开);
+                }
+            }else if (Bug_status.已废弃.equals(bug.getStatus())){
+                if (Bug_action.rtnCreating.equals(bug.getAction())) {
+                    bug.setStatus(Bug_status.创建中);
+                }
             }
+
             myService.updateEntity(bug);
+//            myService.mergeEntity(bug);
+
         }else{
             User currentUser = (User) request.getSession().getAttribute("currentUser");
             bug.setCreator(currentUser);
@@ -157,6 +178,13 @@ public class BugController {
             myService.saveEntity(bug);
         }
         return "redirect:/bug/list.do";
+    }
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public String delete(@RequestParam Integer id){
+        myService.deleteEntity(Bug.class,id);
+        return "{\"success\":true}";
     }
 
     @RequestMapping("/list")

@@ -52,7 +52,7 @@
                     <td>操作</td>
                 </tr>
                 <c:forEach items="${bugList}" var="bug" varStatus="index">
-                    <tr align="center" id="tr_user_${bug.id}">
+                    <tr align="center" id="tr_bug_${bug.id}">
                         <td>${index.index+1}</td>
                         <td>${bug.label}</td>
                         <td>${bug.creator.label}</td>

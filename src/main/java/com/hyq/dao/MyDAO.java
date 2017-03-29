@@ -64,4 +64,6 @@ public interface MyDAO<T> {
     public T getEntityByField(Class<T> c, String fieldName, String fieldValue);
 
     public void updateOneFieldOfEntity(Class<T> c, String fieldName,Object fieldValue,int id);
+
+    public void clearSession();
 }

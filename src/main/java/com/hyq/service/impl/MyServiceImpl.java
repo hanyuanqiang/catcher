@@ -72,4 +72,10 @@ public class MyServiceImpl<T> implements MyService<T> {
         myDAO.updateOneFieldOfEntity(c,fieldName,fieldValue,id);
     }
 
+    public T getEntityByIdAndClearSession(Class<T> c, int id) {
+        T o = myDAO.get(c,id);
+        myDAO.clearSession();
+        return o;
+    }
+
 }

@@ -29,4 +29,6 @@ public interface MyService<T> {
     public Object mergeEntity(T o);
 
     public void updateOneFieldOfEntity(Class<T> c, String fieldName, Object fieldValue, int id);
+
+    public T getEntityByIdAndClearSession(Class<T> c,int id);
 }
