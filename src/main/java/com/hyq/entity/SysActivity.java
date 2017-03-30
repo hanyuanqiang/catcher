@@ -1,6 +1,5 @@
 package com.hyq.entity;
 
-import com.hyq.entity.enum_.SysActivity_type;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,7 +16,8 @@ public class SysActivity {
     private Date createTime;
     private String label;   //操作内容
     private String action;  //操作动作
-    private SysActivity_type type;  //活动类型
+
+    private User owner;
 
     @Id
     @GeneratedValue(generator = "_native")
@@ -55,11 +55,13 @@ public class SysActivity {
         this.action = action;
     }
 
-    public SysActivity_type getType() {
-        return type;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "owner",referencedColumnName = "id")
+    public User getOwner() {
+        return owner;
     }
 
-    public void setType(SysActivity_type type) {
-        this.type = type;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

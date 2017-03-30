@@ -89,7 +89,8 @@ public class Bug {
         this.description = description;
     }
 
-    @Column(length = 1000)
+    @Lob
+    @Column(columnDefinition="TEXT")
     public String getResolution() {
         return resolution;
     }

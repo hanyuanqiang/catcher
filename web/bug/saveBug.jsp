@@ -29,27 +29,23 @@
                 <input type="text" value="${bug.id}" name="id" hidden>
                 <input type="text" value="${bug.status}" name="status" hidden>
                 <input type="text" value="save" name="action" hidden id="bug_action">
-                <%--<c:if test="${bug!=null && bug.processor!=null}">
-                    <input type="text" value="${bug.processor.id}" name="processor.id" hidden>
-                </c:if>
-                <c:if test="${bug!=null && bug.verifier!=null}">
-                    <input type="text" value="${bug.verifier.id}" name="verifier.id" hidden>
-                </c:if>--%>
-
-                <table border="1" style="width: 100%;">
+                <table style="width: 100%;">
                     <tr>
-                        <td style="width:70%;">
-                            <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
-                            <c:if test="${bug != null}">当前状态：${bug.status}</c:if>
-                            <%--<c:if test="${bug == null}">
-                                &lt;%&ndash;只有当新建的时候才显示保存按钮&ndash;%&gt;
-                                <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">保存</button>
-                            </c:if>--%>
-                        </div>
+                        <td style="width:70%;padding: 10px 10px;background-color: #FFFFE0">
+                            <c:if test="${bug != null}">
+                                <div style="height: 40px;width: 100%;">
+                                    <p style="float: right">
+                                        <span>创建人：${bug.creator.label}</span>
+                                        <span style="margin-left: 20px;">创建时间：${bug.createTime}</span>
+                                        <span style="margin-left: 20px;">当前状态：${bug.status.showInHtml}</span>
+                                    </p>
+                                </div>
+                            </c:if>
                             <div id="parentHorizontalTab" readonly="readonly">
                                 <ul class="resp-tabs-list hor_1">
                                     <li>基本信息</li>
                                     <li>附件</li>
+                                    <li>处理过程</li>
                                 </ul>
                                 <div class="resp-tabs-container hor_1">
                                     <div>
@@ -156,12 +152,19 @@
                                     <div>
                                         <div>该面板用于上传附件</div>
                                     </div>
+                                    <div>
+                                        <div>
+                                            <p>处理过程：</p>
+                                            <p>${bug.resolution}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </td>
-                        <td valign="top">
+                        <td width="20px;"></td>
+                        <td style="padding: 10px 10px;background-color: #FFFFE0" valign="top">
                             <c:if test='${bug.status == null}'><%--新建缺陷时显示--%>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -258,7 +261,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "创建中"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -358,7 +361,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "待分配"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -463,7 +466,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "已废弃"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -488,7 +491,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "处理中"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -655,7 +658,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "验证中"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -755,7 +758,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "已挂起"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -786,7 +789,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "已关闭"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>
@@ -797,6 +800,7 @@
 
                                 <script>
                                     $(function(){
+                                        $("#bug_action").val("rOpen");
                                         $("#rOpen").click(function(){
                                             $("#bug_action").val("rOpen");
                                         });
@@ -811,7 +815,7 @@
                                 </script>
                             </c:if>
                             <c:if test='${bug.status == "重打开"}'>
-                                <div style="height: 40px;width: 100%;border: 1px rebeccapurple solid">
+                                <div style="height: 40px;width: 100%;">
                                     <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
                                 </div>
                                 <div>

@@ -40,6 +40,7 @@ public class UserController {
         if (loginUser != null){
             if (loginUser.getPassword().equals(password)){
                 request.getSession().setAttribute("currentUser",loginUser);
+
                 return "redirect:/user/main.do";
             }else{
                 map.put("message","登陆密码错误");
