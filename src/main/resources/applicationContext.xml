@@ -13,9 +13,10 @@
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">    
   
-   <context:property-placeholder location="classpath:jdbc.properties" />
-   <context:component-scan base-package="com.hyq.controller"/>
+    <context:property-placeholder location="classpath:jdbc.properties" />
+    <context:component-scan base-package="com.hyq.controller"/>
     <context:component-scan base-package="com.hyq.aspect"/>
+    <context:component-scan base-package="com.hyq.interceptor"/>
    <!-- 自动加载构建bean -->  
     <context:component-scan base-package="com.hyq.service" />
     <context:component-scan base-package="com.hyq.dao" />
@@ -116,9 +117,9 @@
   
     <!-- 配置事务切面 -->  
     <aop:config>  
-        <aop:pointcut id="serviceOperation"  
+        <aop:pointcut id="serviceOperation"
             expression="execution(* com.hyq.service.*.*(..))" />
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />  
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
     </aop:config>
 
     <!-- session工厂 -->

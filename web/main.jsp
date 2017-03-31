@@ -10,7 +10,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <html lang="en" class="cye-disabled cye-nm" style="overflow: hidden;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="shortcut icon" href="#">
     <title>catcher缺陷管理系统</title>
 
     <!--bootstrap相关样式 start-->
@@ -171,7 +170,7 @@
                     </ul>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="javascript:;" class="dcjq-parent" has_check_key_word="true">
+                    <a href="${pageContext.request.contextPath}/sysActivity/list.do" class="dcjq-parent" has_check_key_word="true">
                         <i class="fa fa-eye-slash"></i>
                         <span>活动记录</span>
                         <span class="dcjq-icon"></span>

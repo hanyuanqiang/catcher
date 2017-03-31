@@ -137,7 +137,7 @@
     </column>
     <column id="46" parent="12" name="resolution">
       <Position>12</Position>
-      <DataType>varchar(1000)|0</DataType>
+      <DataType>text|0</DataType>
     </column>
     <column id="47" parent="12" name="resolveDate">
       <Position>13</Position>
@@ -493,145 +493,158 @@
       <DataType>datetime|0</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="128" parent="17" name="label">
+    <column id="128" parent="17" name="message">
       <Position>4</Position>
+      <DataType>varchar(1000)|0</DataType>
+    </column>
+    <column id="129" parent="17" name="model">
+      <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="129" parent="17" name="type">
-      <Position>5</Position>
+    <column id="130" parent="17" name="owner">
+      <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <key id="130" parent="17" name="PRIMARY">
+    <index id="131" parent="17" name="FK_8jtb12kmqvtems4oshffomjcm">
+      <ColNames>owner</ColNames>
+    </index>
+    <key id="132" parent="17" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="131" parent="18" name="id">
+    <foreign-key id="133" parent="17" name="FK_8jtb12kmqvtems4oshffomjcm">
+      <ColNames>owner</ColNames>
+      <RefSchemaName>catcher</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="134" parent="18" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="132" parent="18" name="account">
+    <column id="135" parent="18" name="account">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="133" parent="18" name="birth">
+    <column id="136" parent="18" name="birth">
       <Position>3</Position>
       <DataType>date|0</DataType>
     </column>
-    <column id="134" parent="18" name="createTime">
+    <column id="137" parent="18" name="createTime">
       <Position>4</Position>
       <DataType>datetime|0</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="135" parent="18" name="email">
+    <column id="138" parent="18" name="email">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="136" parent="18" name="gender">
+    <column id="139" parent="18" name="gender">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="137" parent="18" name="isAdmin">
+    <column id="140" parent="18" name="isAdmin">
       <Position>7</Position>
       <DataType>bit(1)|0</DataType>
     </column>
-    <column id="138" parent="18" name="label">
+    <column id="141" parent="18" name="label">
       <Position>8</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="139" parent="18" name="password">
+    <column id="142" parent="18" name="password">
       <Position>9</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="140" parent="18" name="phone">
+    <column id="143" parent="18" name="phone">
       <Position>10</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="141" parent="18" name="post">
+    <column id="144" parent="18" name="post">
       <Position>11</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="142" parent="18" name="PRIMARY">
+    <key id="145" parent="18" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="143" parent="19" name="id">
+    <column id="146" parent="19" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="144" parent="19" name="actualDate">
+    <column id="147" parent="19" name="actualDate">
       <Position>2</Position>
       <DataType>date|0</DataType>
     </column>
-    <column id="145" parent="19" name="attachment">
+    <column id="148" parent="19" name="attachment">
       <Position>3</Position>
       <DataType>varchar(1000)|0</DataType>
     </column>
-    <column id="146" parent="19" name="createTime">
+    <column id="149" parent="19" name="createTime">
       <Position>4</Position>
       <DataType>datetime|0</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="147" parent="19" name="description">
+    <column id="150" parent="19" name="description">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="148" parent="19" name="label">
+    <column id="151" parent="19" name="label">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="149" parent="19" name="planDate">
+    <column id="152" parent="19" name="planDate">
       <Position>7</Position>
       <DataType>date|0</DataType>
     </column>
-    <column id="150" parent="19" name="status">
+    <column id="153" parent="19" name="status">
       <Position>8</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="151" parent="19" name="creator">
+    <column id="154" parent="19" name="creator">
       <Position>9</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="152" parent="19" name="owner">
+    <column id="155" parent="19" name="owner">
       <Position>10</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="153" parent="19" name="project">
+    <column id="156" parent="19" name="project">
       <Position>11</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="154" parent="19" name="FK_3lyghn7sxaevhdystkb2xnei2">
+    <index id="157" parent="19" name="FK_3lyghn7sxaevhdystkb2xnei2">
       <ColNames>creator</ColNames>
     </index>
-    <index id="155" parent="19" name="FK_cy5y0gihkiiec4x3nvyqv9223">
+    <index id="158" parent="19" name="FK_cy5y0gihkiiec4x3nvyqv9223">
       <ColNames>project</ColNames>
     </index>
-    <index id="156" parent="19" name="FK_t3mawonb5q852s7c7vopj7y0r">
+    <index id="159" parent="19" name="FK_t3mawonb5q852s7c7vopj7y0r">
       <ColNames>owner</ColNames>
     </index>
-    <key id="157" parent="19" name="PRIMARY">
+    <key id="160" parent="19" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="158" parent="19" name="FK_3lyghn7sxaevhdystkb2xnei2">
+    <foreign-key id="161" parent="19" name="FK_3lyghn7sxaevhdystkb2xnei2">
       <ColNames>creator</ColNames>
       <RefSchemaName>catcher</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="159" parent="19" name="FK_t3mawonb5q852s7c7vopj7y0r">
+    <foreign-key id="162" parent="19" name="FK_t3mawonb5q852s7c7vopj7y0r">
       <ColNames>owner</ColNames>
       <RefSchemaName>catcher</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="160" parent="19" name="FK_cy5y0gihkiiec4x3nvyqv9223">
+    <foreign-key id="163" parent="19" name="FK_cy5y0gihkiiec4x3nvyqv9223">
       <ColNames>project</ColNames>
       <RefSchemaName>catcher</RefSchemaName>
       <RefTableName>project</RefTableName>

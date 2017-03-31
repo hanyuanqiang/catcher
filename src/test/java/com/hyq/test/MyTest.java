@@ -1,11 +1,16 @@
 package com.hyq.test;
 
+import com.hyq.util.DateUtil;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -164,5 +169,12 @@ public class MyTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void test() throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.transStr2Date("2015-08-17","yyyy-MM-dd"));
+        System.out.println(calendar.get(Calendar.DAY_OF_YEAR));
     }
 }

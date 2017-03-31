@@ -2,6 +2,7 @@ package com.hyq.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by genius on 2017/3/16.
@@ -24,4 +25,5 @@ public class TestController {
     public String test03(){
         return "umditor";
     }
+
 }

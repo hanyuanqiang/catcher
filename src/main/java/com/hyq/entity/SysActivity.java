@@ -14,9 +14,9 @@ public class SysActivity {
 
     private Integer id;
     private Date createTime;
-    private String label;   //操作内容
-    private String action;  //操作动作
-
+    private String model;   //操作模型
+    private String action;  //动作
+    private String message; //说明
     private User owner;
 
     @Id
@@ -39,14 +39,6 @@ public class SysActivity {
         this.createTime = createTime;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
     public String getAction() {
         return action;
     }
@@ -63,5 +55,22 @@ public class SysActivity {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    @Column(length = 1000)
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

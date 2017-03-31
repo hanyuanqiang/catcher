@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Set;
 
@@ -77,5 +78,4 @@ public class MyServiceImpl<T> implements MyService<T> {
         myDAO.clearSession();
         return o;
     }
-
 }
