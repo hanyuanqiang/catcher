@@ -1,5 +1,6 @@
 package com.hyq.controller;
 
+import com.hyq.condition.Condition;
 import com.hyq.entity.Bug;
 import com.hyq.entity.Project;
 import com.hyq.entity.User;
@@ -46,7 +47,7 @@ public class VersionController {
     @RequestMapping("/list")
     public ModelAndView list(Version version){
         ModelAndView mav = new ModelAndView();
-        List<Version> versionList = myService.findEntityList(Version.class,version,null);
+        List<Version> versionList = myService.findEntityList(new Condition(version),null);
         mav.addObject("versionList",versionList);
         mav.addObject("subPage","/version/versionList.jsp");
         mav.setViewName("main");
@@ -100,7 +101,7 @@ public class VersionController {
     @ResponseBody
     @RequestMapping(value = "/list_json",produces = "text/html;charset=UTF-8")
     public String list_json(){
-        List<Version> versionList = myService.findEntityList(Version.class,null,null);
+        List<Version> versionList = myService.findEntityList(new Condition(Version.class),null);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {

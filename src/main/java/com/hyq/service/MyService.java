@@ -1,5 +1,6 @@
 package com.hyq.service;
 
+import com.hyq.condition.Condition;
 import com.hyq.entity.Affiche;
 import com.hyq.entity.PageBean;
 import com.hyq.util.StringUtil;
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 public interface MyService<T> {
 
-    public List<T> findEntityList(Class<T> c,T s_o, PageBean pageBean);
+    public List<T> findEntityList(Condition con, PageBean pageBean);
 
     public T getEntityById(Class<T> c, int id);
 

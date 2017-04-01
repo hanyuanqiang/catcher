@@ -1,5 +1,6 @@
 package com.hyq.dao;
 
+import com.hyq.condition.Condition;
 import com.hyq.entity.PageBean;
 import com.hyq.util.StringUtil;
 
@@ -57,7 +58,7 @@ public interface MyDAO<T> {
      */
     public T get(Class<T> c, Serializable id);
 
-    public List<T> find(Class<T> c,T s_o, PageBean pageBean);
+    public List<T> find(Condition con, PageBean pageBean);
 
     public int  delete(Class<T> c, Set<Integer> ids);
 

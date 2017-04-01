@@ -141,7 +141,7 @@
                         <span class="dcjq-icon"></span>
                     </a>
                     <ul class="sub" style="display: none;">
-                        <li><a href="#" has_check_key_word="true">项目概况</a></li>
+                        <li><a href="${pageContext.request.contextPath}/project/status.do" has_check_key_word="true">项目概况</a></li>
                         <li><a href="${pageContext.request.contextPath}/project/list.do" has_check_key_word="true">所有项目</a></li>
                         <li><a href="${pageContext.request.contextPath}/project/preSave.do" has_check_key_word="true">新增项目</a></li>
                     </ul>

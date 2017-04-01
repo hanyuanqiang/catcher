@@ -1,5 +1,6 @@
 package com.hyq.controller;
 
+import com.hyq.condition.Condition;
 import com.hyq.entity.Bug;
 import com.hyq.entity.Project;
 import com.hyq.entity.User;
@@ -239,7 +240,7 @@ public class BugController {
     @RequestMapping("/list")
     public ModelAndView list(Bug bug){
         ModelAndView mav = new ModelAndView();
-        List<Bug> bugList = myService.findEntityList(Bug.class,bug,null);
+        List<Bug> bugList = myService.findEntityList(new Condition(bug),null);
         mav.addObject("bugList",bugList);
         mav.addObject("subPage","/bug/bugList.jsp");
         mav.setViewName("main");

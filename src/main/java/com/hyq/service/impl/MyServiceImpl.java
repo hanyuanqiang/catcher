@@ -1,5 +1,6 @@
 package com.hyq.service.impl;
 
+import com.hyq.condition.Condition;
 import com.hyq.dao.MyDAO;
 import com.hyq.entity.Affiche;
 import com.hyq.entity.PageBean;
@@ -24,8 +25,8 @@ public class MyServiceImpl<T> implements MyService<T> {
     @Resource
     private MyDAO<T> myDAO;
 
-    public List<T> findEntityList(Class<T> c,T s_o, PageBean pageBean) {
-        return myDAO.find(c,s_o,pageBean);
+    public List<T> findEntityList(Condition con, PageBean pageBean) {
+        return myDAO.find(con,pageBean);
     }
 
     public T getEntityById(Class<T> c, int id) {

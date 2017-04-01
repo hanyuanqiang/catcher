@@ -1,5 +1,6 @@
 package com.hyq.controller;
 
+import com.hyq.condition.Condition;
 import com.hyq.entity.SysActivity;
 import com.hyq.entity.User;
 import com.hyq.service.MyService;
@@ -34,7 +35,7 @@ public class SysActivityController {
             sysActivity.setOwner(null);
         }
         ModelAndView mav = new ModelAndView();
-        List<SysActivity> sysActivityList = myService.findEntityList(SysActivity.class,sysActivity,null);
+        List<SysActivity> sysActivityList = myService.findEntityList(new Condition(sysActivity),null);
         mav.addObject("sysActivityList",sysActivityList);
         mav.addObject("subPage","/sysActivity/sysActivityList.jsp");
         mav.setViewName("main");
@@ -51,7 +52,7 @@ public class SysActivityController {
     @ResponseBody
     @RequestMapping(value = "/list_json",produces = "text/html;charset=UTF-8")
     public String list_json(){
-        List<SysActivity> sysActivityList = myService.findEntityList(SysActivity.class,null,null);
+        List<SysActivity> sysActivityList = myService.findEntityList(new Condition(SysActivity.class),null);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {

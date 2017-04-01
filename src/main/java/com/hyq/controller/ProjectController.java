@@ -1,8 +1,11 @@
 package com.hyq.controller;
 
 import com.google.common.collect.Lists;
+import com.hyq.condition.Condition;
 import com.hyq.entity.Project;
 import com.hyq.entity.User;
+import com.hyq.entity.enum_.Project_riskStatus;
+import com.hyq.entity.enum_.Project_status;
 import com.hyq.service.MyService;
 import com.hyq.util.CheckUtil;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -17,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,9 +84,16 @@ public class ProjectController {
     }
 
     @RequestMapping("/list")
-    public ModelAndView list(Project project){
+    public ModelAndView list(Project project,String tag){
         ModelAndView mav = new ModelAndView();
-        List<Project> projectList = myService.findEntityList(Project.class,project,null);
+        Condition con = new Condition(project);
+        if ("delay".equals(tag)){
+            project.setPlanEndDate(new Date());
+            project.setStatus(Project_status.进行中);
+            con.addCondition("planEndDate",Condition.LT);
+            con.setEntity(project);
+        }
+        List<Project> projectList = myService.findEntityList(con,null);
         mav.addObject("projectList",projectList);
         mav.addObject("subPage","/project/projectList.jsp");
         mav.setViewName("main");
@@ -96,10 +107,57 @@ public class ProjectController {
         return "{\"success\":true}";
     }
 
+    @RequestMapping("/status")
+    public ModelAndView projectStatus(){
+        ModelAndView mav = new ModelAndView();
+        //获取处于危险状态的项目
+        Project s_project = new Project();
+        s_project.setRiskStatus(Project_riskStatus.危险);
+        List<Project> dangerProjectList = myService.findEntityList(new Condition(s_project),null);
+
+        //获取处于警惕状态的项目
+        s_project.setRiskStatus(Project_riskStatus.警惕);
+        List<Project> warningProjectList = myService.findEntityList(new Condition(s_project),null);
+
+        //获取已经延期的项目
+        s_project.setRiskStatus(null);
+        s_project.setPlanEndDate(new Date());
+        s_project.setStatus(Project_status.进行中);
+        Condition condition = new Condition(s_project);
+        condition.addCondition("planEndDate",Condition.LT);
+        List<Project> delayProjectList = myService.findEntityList(condition,null);
+
+        //获取正在进行中的项目
+        s_project = new Project();
+        s_project.setStatus(Project_status.进行中);
+        List<Project> ingProjectList = myService.findEntityList(new Condition(s_project),null);
+
+        //已完成的项目
+        s_project = new Project();
+        s_project.setStatus(Project_status.已完成);
+        List<Project> finishProjectList = myService.findEntityList(new Condition(s_project),null);
+
+        //已完成的项目
+        s_project = new Project();
+        s_project.setStatus(Project_status.已归档);
+        List<Project> doneProjectList = myService.findEntityList(new Condition(s_project),null);
+
+        mav.addObject("dangerProjectList",dangerProjectList);
+        mav.addObject("warningProjectList",warningProjectList);
+        mav.addObject("delayProjectList",delayProjectList);
+        mav.addObject("ingProjectList",ingProjectList);
+        mav.addObject("finishProjectList",finishProjectList);
+        mav.addObject("doneProjectList",doneProjectList);
+
+        mav.setViewName("main");
+        mav.addObject("subPage","/project/projectStatus.jsp");
+        return mav;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/list_json",produces = "text/html;charset=UTF-8")
     public String list_json(){
-        List<Project> projectList = myService.findEntityList(Project.class,null,null);
+        List<Project> projectList = myService.findEntityList(new Condition(Project.class),null);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {
@@ -109,8 +167,6 @@ public class ProjectController {
         }
         return json;
     }
-
-
 
     /*去掉空的members*/
     public List<User> handleMembers(List<User> members){

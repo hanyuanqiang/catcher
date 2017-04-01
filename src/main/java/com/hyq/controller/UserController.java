@@ -1,5 +1,6 @@
 package com.hyq.controller;
 
+import com.hyq.condition.Condition;
 import com.hyq.entity.User;
 import com.hyq.service.MyService;
 import com.hyq.util.CheckUtil;
@@ -68,9 +69,9 @@ public class UserController {
     }
 
     @RequestMapping("/list")
-    public ModelAndView list(){
+    public ModelAndView list(User user){
         ModelAndView mav = new ModelAndView();
-        List<User> userList = myService.findEntityList(User.class,null,null);
+        List<User> userList = myService.findEntityList(new Condition(user),null);
         mav.addObject("userList",userList);
         mav.addObject("subPage","/user/userList.jsp");
         mav.setViewName("main");
@@ -122,7 +123,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/list_json",produces = "text/html;charset=UTF-8")
     public String list_json(){
-        List<User> userList = myService.findEntityList(User.class,null,null);
+        List<User> userList = myService.findEntityList(new Condition(User.class),null);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {
