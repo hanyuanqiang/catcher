@@ -148,12 +148,12 @@ public class MyDAOImpl<T> implements MyDAO<T> {
 			}
 		}
 
-		if (CheckUtil.isNotNull(pageBean)){
-			criteria = criteria.setFirstResult(pageBean.getStart());
-			criteria = criteria.setMaxResults(pageBean.getPageSize());
-		}
 		if ("desc".equals(con.ORDER)){
-			criteria.addOrder(Order.desc("id"));
+			criteria = criteria.addOrder(Order.desc("id"));
+		}
+
+		if (CheckUtil.isNotNull(pageBean)){
+			criteria = criteria.setFirstResult(pageBean.getStart()).setMaxResults(pageBean.getPageSize());
 		}
 
 		return criteria.list();

@@ -127,7 +127,7 @@
                         <span class="dcjq-icon"></span>
                     </a>
                     <ul class="sub" style="display: none;">
-                        <li><a href="#" has_check_key_word="true">我的项目</a></li>
+                        <li><a href="${pageContext.request.contextPath}/project/myProject.do" has_check_key_word="true">我的项目</a></li>
                         <li><a href="#" has_check_key_word="true">我的版本</a></li>
                         <li><a href="#" has_check_key_word="true">我的缺陷</a></li>
                         <li><a href="#" has_check_key_word="true">我的消息</a></li>

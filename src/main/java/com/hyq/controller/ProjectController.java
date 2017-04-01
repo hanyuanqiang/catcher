@@ -1,7 +1,9 @@
 package com.hyq.controller;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.hyq.condition.Condition;
+import com.hyq.entity.PageBean;
 import com.hyq.entity.Project;
 import com.hyq.entity.User;
 import com.hyq.entity.enum_.Project_riskStatus;
@@ -20,8 +22,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by genius on 2017/3/14.
@@ -154,14 +158,31 @@ public class ProjectController {
         return mav;
     }
 
+    @RequestMapping("/myProject")
+    public ModelAndView myProject() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("main");
+        mav.addObject("subPage","/workbench/myProject.jsp");
+        return mav;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/list_json",produces = "text/html;charset=UTF-8")
-    public String list_json(){
-        List<Project> projectList = myService.findEntityList(new Condition(Project.class),null);
+    public String list_json(Integer offset,Integer limit,Project project){
+        PageBean pageBean = null;
+        if (offset !=null && limit !=null){
+            pageBean = new PageBean(limit);
+            pageBean.setStart(offset);
+        }
+        List<Project> projectList = myService.findEntityList(new Condition(project),pageBean);
+        Map<String ,Object> result = Maps.newHashMap();
+        result.put("rows",projectList);
+        result.put("total",myService.findEntityList(new Condition(project),null).size());
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         String json = "";
         try {
-            json = mapper.writeValueAsString(projectList);
+            json = mapper.writeValueAsString(result);
         } catch (IOException e) {
             e.printStackTrace();
         }

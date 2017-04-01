@@ -859,38 +859,9 @@
     <div id="user_table_div" hidden>
         <table id="select_user_table"></table>
     </div>
-
-    <%--<c:if test='${bug.status == "创建中"}'>
-        <button type="button" class="btn btn-info" style="float: right" onclick="submitForm()">提交</button>
-    </c:if>--%>
-    <%--<c:if test='${bug.status == "待分配"}'>
-
-    </c:if>--%>
-    <%--<c:if test='${bug.status == "处理中"}'>
-
-    </c:if>--%>
-    <%--<c:if test='${bug.status == "验证中"}'>
-
-    </c:if>--%>
-    <%--<c:if test='${bug.status == "已废弃"}'>
-
-    </c:if>--%>
-    <%--<c:if test='${bug.status == "已关闭"}'>
-
-    </c:if>--%>
-    <%--<c:if test='${bug.status == "已挂起"}'>
-
-    </c:if>--%>
 </div>
 
 <script>
-
-    /*$(function() {
-        alert("here");
-        $("#parentHorizontalTab:has(input)").each(function(){
-            $(this).attr("readonly","readonly");
-        });
-    })*/
 
     /*初始化富文本编辑器*/
     $(function() {
@@ -901,46 +872,6 @@
             /*width:977*/
         })
     });
-
-
-
-
-    /*/!*添加处理着*!/
-    function addProcessor() {
-        $.post("${pageContext.request.contextPath}/user/list_json.do",function (result) {
-            $("#select_user_table").bootstrapTable('load',result);
-        },"json");
-
-        //页面层
-        layer.open({
-            title:"请选择处理人",
-            type: 1,
-            skin: 'layui-layer-rim', //加上边框
-            area: ['650px', '530px'], //宽高
-            scrollbar: false,
-            content: $("#user_table_div"),
-            btn:['确定', '关闭'],
-            yes:function (index,layero) {
-                var users = $("#select_user_table").bootstrapTable("getSelections");
-                if(users.length == 1){
-                    $.each(users,function (n,value) {
-                        $("#a_processor").remove();
-                        $("#input_processor").remove();
-                        $("#processorTag").after('<a title="'+value.label+'" href="javascript:void(0);" id="a_processor"  class="a_user"><span>'+value.label+'</span><em onclick="removeProcessor()"></em> </a>');
-                        $("#processorTag").after('<input type="text" hidden value="'+value.id+'" name="processor.id" id="input_processor">');
-                    });
-                    layer.close(index); //如果设定了yes回调，需进行手工关闭
-                }else{
-                    layer.alert('请选择一个用户', {icon: 7});
-                }
-            }
-        });
-    }
-
-    function removeProcessor() {
-        $("#a_processor").remove();
-        $("#input_processor").remove();
-    }*/
 
     /*添加发现问题版本*/
     function addRaisedVersion() {

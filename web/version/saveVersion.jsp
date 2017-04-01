@@ -205,9 +205,9 @@
 
     /*添加项目成员*/
     function addProject() {
-        $.post("${pageContext.request.contextPath}/project/list_json.do",function (result) {
+        /*$.post("",function (result) {
             $('#select_project_table').bootstrapTable('load',result);
-        },"json");
+        },"json");*/
 
         //页面层
         layer.open({
@@ -242,6 +242,7 @@
 
     /*初始化选择项目成员表格*/
     $('#select_project_table').bootstrapTable({
+        url:'${pageContext.request.contextPath}/project/list_json.do',
         columns: [{
             radio:true
         },{
@@ -255,14 +256,22 @@
             field: 'createTime',
             title: '创建时间'
         },{
-            field: 'creator',
+            field: 'creator.label',
             title: '创建者'
         }],
         pagination: true,
         height:400,
         paginationLoop:false,
         pageSize:10,
-        pageList:[10,20]
+        pageList:[10,20],
+        sidePagination:'server',    //服务端分页,后台必须返回rows，total这两个参数
+        queryParams: function (params) {
+            var temp = {
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+            };
+            return temp;
+        }
     });
 
     /*初始化选择项目负责人表格*/

@@ -11,10 +11,14 @@ public class PageBean {
 	private int pageSize; // 每页记录数
 	private int start;  // 起始页
 
-
 	public PageBean(int page, int pageSize) {
 		super();
 		this.page = page;
+		this.pageSize = pageSize;
+		start = (page-1)*pageSize;
+	}
+
+	public PageBean(int pageSize) {
 		this.pageSize = pageSize;
 	}
 
@@ -34,7 +38,10 @@ public class PageBean {
 	}
 
 	public int getStart() {
-		return (page-1)*pageSize;
+		return start;
 	}
 
+	public void setStart(int start) {
+		this.start = start;
+	}
 }
