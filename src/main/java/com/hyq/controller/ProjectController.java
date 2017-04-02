@@ -2,6 +2,7 @@ package com.hyq.controller;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.hyq.condition.Condition;
 import com.hyq.entity.PageBean;
 import com.hyq.entity.Project;
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by genius on 2017/3/14.
@@ -81,7 +83,7 @@ public class ProjectController {
         }else{
             User currentUser = (User) request.getSession().getAttribute("currentUser");
             project.setCreator(currentUser);
-            project.setMembers(handleMembers(project.getMembers()));
+            project.setRiskStatus(Project_riskStatus.正常);
             myService.saveEntity(project);
         }
         return "redirect:/project/list.do";
@@ -106,8 +108,19 @@ public class ProjectController {
 
     @ResponseBody
     @RequestMapping("/delete")
-    public String delete(@RequestParam Integer id){
-        myService.deleteEntity(Project.class,id);
+    public String delete(Integer id,String ids){
+        if (CheckUtil.isNotNull(id)){
+            myService.deleteEntity(Project.class,id);
+        }else if (CheckUtil.isNotNull(ids)){
+            String[] idArray = ids.split(",");
+            Set<Integer> idSet = Sets.newHashSet();
+            for (String idString : idArray){
+                idSet.add(Integer.parseInt(idString));
+            }
+            myService.deleteEntity(Project.class,idSet);
+        }else{
+            return "{\"success\":false}";
+        }
         return "{\"success\":true}";
     }
 
@@ -168,12 +181,20 @@ public class ProjectController {
 
     @ResponseBody
     @RequestMapping(value = "/list_json",produces = "text/html;charset=UTF-8")
-    public String list_json(Integer offset,Integer limit,Project project){
+    public String list_json(HttpServletRequest request,Integer offset,Integer limit,Project project,String tag){
         PageBean pageBean = null;
         if (offset !=null && limit !=null){
             pageBean = new PageBean(limit);
             pageBean.setStart(offset);
         }
+
+        if ("iOwner".equals(tag)){
+            User user = (User) request.getSession().getAttribute("currentUser");
+            project.setOwner(user);
+        }else if ("iJoin".equals(tag)){
+
+        }
+
         List<Project> projectList = myService.findEntityList(new Condition(project),pageBean);
         Map<String ,Object> result = Maps.newHashMap();
         result.put("rows",projectList);

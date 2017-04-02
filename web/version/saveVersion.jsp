@@ -205,10 +205,6 @@
 
     /*添加项目成员*/
     function addProject() {
-        /*$.post("",function (result) {
-            $('#select_project_table').bootstrapTable('load',result);
-        },"json");*/
-
         //页面层
         layer.open({
             title:"选择所属项目",
